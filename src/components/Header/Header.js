@@ -1,45 +1,51 @@
 import React from "react";
+import { Link, NavLink } from "react-router-dom";
+
 import logo from "../../logo.svg";
 import "./header.css";
 
-const Header = () => (
+const Header = (props) => (
   <header className="header">
-    <img src={logo} alt="Logo Space X" className="logo" />
+    <Link to="/">
+      <img src={logo} alt="Logo Space X" className="logo" />
+    </Link>
     <nav className="main-nav nav">
       <ul className="list">
-        <li className="item">
-          <a href="/" className="item-link">
-            Falcon 1
-          </a>
-        </li>
-        <li className="item">
-          <a href="/" className="item-link">
-            Falcon 9
-          </a>
-        </li>
-        <li className="item">
-          <a href="/" className="item-link">
-            Falcon Heavy
-          </a>
-        </li>
-        <li className="item">
-          <a href="/" className="item-link">
-            Updates
-          </a>
-        </li>
+        {props.rockets.map((item, index) => (
+          <li key={index} className="item">
+            <Link
+              to="/rocket"
+              onClick={() => {
+                props.changeRocket(item);
+              }}
+              className="item-link"
+            >
+              {item}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
     <nav className="secondary-nav">
       <ul className="list">
         <li className="item">
-          <a href="/" className="item-link">
+          <NavLink 
+          exact 
+          to="/" 
+          className="item-link" 
+          activeClassName="active">
             Home
-          </a>
+          </NavLink>
         </li>
         <li className="item">
-          <a href="calendar.html" className="item-link">
+          <NavLink
+            exact
+            to="/calendar"
+            className="item-link"
+            activeClassName="active"
+          >
             Calendar
-          </a>
+          </NavLink>
         </li>
       </ul>
     </nav>
